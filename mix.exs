@@ -21,7 +21,8 @@ defmodule ExSifiComix.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:git_cli, "~> 0.3"}
+      {:git_cli, "~> 0.3"},
+      {:temp, "~> 0.4", only: :test}
     ]
   end
 end
