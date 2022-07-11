@@ -29,15 +29,15 @@ defmodule ExSifiComix do
 
   # Get git version tag
   defp git_version_tag do
-    case System.cmd("git", ["describe", "--tags"]) do
-      {"v" <> version, 0} ->
+    case Git.describe(Git.new(), "--tags") do
+      {:ok, "v" <> version} ->
         "v" <> String.trim(version)
 
-      {tag, 0} ->
+      {:ok, tag} ->
         raise "Closest tag #{inspect(tag)} doesn't start with v?! (not version tag?)"
 
-      {error, errno} ->
-        IO.puts("Could not get version. errno: #{inspect(errno)}, error: #{inspect(error)}")
+      {:error, error} ->
+        IO.puts("Could not get version. Error: #{inspect(error)}")
         @default_version
     end
   end
