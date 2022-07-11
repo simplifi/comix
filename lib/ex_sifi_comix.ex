@@ -21,17 +21,13 @@ defmodule ExSifiComix do
     end
   end
 
-  @doc """
-  Build version from git version tag
-  """
+  # Build version from git version tag
   defp git_version do
     # Just remove the starting 'v' from git version tag
-    git_version_tag |> String.slice(1..-1)
+    git_version_tag() |> String.slice(1..-1)
   end
 
-  @doc """
-  Get git version tag
-  """
+  # Get git version tag
   defp git_version_tag do
     case System.cmd("git", ["describe", "--tags"]) do
       {"v" <> version, 0} ->
