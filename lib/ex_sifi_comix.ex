@@ -1,7 +1,5 @@
 defmodule ExSifiComix do
-  @moduledoc """
-  Documentation for `ExSifiComix`.
-  """
+  @moduledoc File.read!(Path.expand("../README.md", __DIR__))
 
   @default_version "v0.0.1-tagless"
 
