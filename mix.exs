@@ -26,6 +26,8 @@ defmodule ExSifiComix.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:credo, "~> 1.1", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.1", only: :dev, runtime: false},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false},
       {:git_cli, "~> 0.3"},
       {:temp, "~> 0.4", only: :test}
