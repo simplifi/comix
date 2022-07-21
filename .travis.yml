@@ -1,27 +1,24 @@
 language: elixir
 matrix:
   include:
-    - elixir: 1.13.0
-      otp_release: 24.0
+  - elixir: 1.13.2
+    otp_release: 24.2
 cache:
   directories:
-    - deps
-    - _build
+  - deps
+  - _build
 notifications:
   slack:
-    on_success: :change
-    on_failure: :always
-    rooms:
-      secure: "BaoA06Rdnsmc8IAl7jAaOe+gn5SFXi2q56mPgIOYb6UIlpAUNsigD/d9Sid8G7wtZ+5OFhXsy7bdT3kD7vNBfdCosq25QBmbdP9+b/4fouCIplS2LtezNpSEwmlTBZW1oJZeDJgUDCNQmIu53yO1Hk2CBjo/vPgz2uzzO8zGEjBKtWrCLkQcNldrHNrWoc/luThZ/exzg33ozQepsb70V0UeieZ2RF4DSc7yG8qCkbGIDzwqD+51fzl4GEkX8Q/ZjTeRkN2dozH8fCvm9Lhob+ZbLcZC/t+Z1XFKcPe6FV6sTalKlN6ofnnHFQ0EoHB1E1iWUdWD83iX+xqV00GEWlvLP5RrCOLn/4Zeznca8da2/Yw3Ar9RMFNaY9MPQOs3TsSPwHrJ3h1/fWFgy8QAj/qlmr4+Paj2CTlSkKpfXYK247K1fzd6qFnD2lMquJP9ISgOqYaPwyiOcag6VL0qxE2YcXBRTOiLVy4rpAbNzdn43NTJRwFy4K0AP7HID6sgVMOI2t8dBHZEgu5kCwBb/WHPE4F8gCKzsl3DHlOYJ0kf0d7PDGILdvOZ15kUU5Q3lCeNqLNiOFMJYtlXwVrC3xcLwKQgz5lBdZRfuhTX7yYMNtTClDATxxf1v9Njx8BBZIlVJ6mZzDW9aWnq1SL9HWAzb1oIE6MteTCxzwrIYrQ="
+    secure: dXrYK+6RSzaRqZols1gfKBb5uvP/uEdE1sQn2aCmpKX07r923Pnm1STmuj4Vx0tALY9FjN4enK5BqR2jCvW12ggxbbA4WAzMeKTCIwiv28+StlKKGs8DWtmmhd21w6P0uWP8Ayk7tSax1xYEyUAydFRG8UssCQpGUjbUI0+81BcvG55mXrvwFIx46/PlQxJzGQITCb6iAe5PeqO5Xi+XcjAf6wwP6juj77gw2GCOml05kPYzwO04hlqe60TRU4OXGTaqohRMeC9SsigUKM9eDQUqlzKYd0LQ2r2z9SqMiu3HC1xN5te5ugZ4roIPAV+hsx68LInCy3NsHYgAJabIciZs2egBM2ZtcQ8ERf2+Pg17TTnTv89twt5lJiNdBiP1BL9KjwuB7lpxmNiFju8NpenFrbbSyu8E7w/L8Ex9LrhQRlTVWheAEXtQ5aHwgkh731ipIDGoV2bjnqpmtYrnE1u4YW5WsB6IIy8gz2Qv/+enVVt0F89CEmeyFRT2ZEljKK6APx8qY0oFh1fhQ4Y17KX8sRbq7vqKaIhXZNFbctDF8dt6ycNbDHXhyCbHz/XOyayiyNo98FMXaNmCvQpUhIFx9ZS1fK8+Nj6opkZclDxJnsMHKesObDx4EXbhSMPUXZ214x5TppEBR9fggUfcLLL4BxX5aMFv//KR8y2HO4E=
 install:
-  - mix do local.rebar --force, local.hex --force
-  - mix hex.organization auth simplifi --key ${HEX_API_KEY}
-  - mix deps.get
+- mix do local.rebar --force, local.hex --force
+- mix hex.organization auth simplifi --key ${HEX_API_KEY}
+- mix deps.get
 script:
-  - cd $TRAVIS_BUILD_DIR
-  - MIX_ENV=test mix compile --warnings-as-errors
-  - mix test
-  - mix credo --strict
-  - mix dialyzer
+- cd $TRAVIS_BUILD_DIR
+- MIX_ENV=test mix compile --warnings-as-errors
+- mix test
+- mix credo --strict
+- mix dialyzer
 after_success:
-  - .travis/upload.sh
+- ".travis/upload.sh"
