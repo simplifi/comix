@@ -10,7 +10,7 @@ Mix.install([{:ex_sifi_comix, "~> 0.1.0", organization: "simplifi", runtime: fal
 Then set `version = ExSifiComix.version()` inside of the `def project`, instead of using a hardcoded version.
 
 ### Troubleshooting
-#### Adding the `Mix.install` line to `mix.exs` causes `mix` commands like `mix deps.get` to error:
+#### Issue: Adding the `Mix.install` line to `mix.exs` causes `mix` commands like `mix deps.get` to error:
 ```
   (exit) exited in: GenServer.call(Hex.Registry.Server, {:open, []}, 60000)
      (EXIT) no process: the process is not alive or there’s no process currently associated with the given name, possibly because its application isn’t started
@@ -27,7 +27,7 @@ Then set `version = ExSifiComix.version()` inside of the `def project`, instead 
 ##### Solution
 Be sure to include the call to `Application.ensure_all_started(:hex)` before calling `Mix.Install/2`, to explicitly ensure hex is started.
 
-#### Commands like `mix local.hex --force` are failing (common for Travis):
+#### Issue: Commands like `mix local.hex --force` are failing (common for Travis):
 ```
 ** (MatchError) no match of right hand side value: {:error, {:hex, {'no such file or directory', 'hex.app'}}}
     mix.exs:1: (file)
