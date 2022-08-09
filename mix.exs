@@ -6,7 +6,7 @@ defmodule ExSifiComix.MixProject do
   def project do
     [
       app: :ex_sifi_comix,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.12",
       package: package(),
       description: "Common mix.exs code that all projects can benefit from",
