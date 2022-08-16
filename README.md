@@ -66,6 +66,14 @@ cd -
 # compile for production
 ```
 
+#### Issue: The release build is failing to upload from Travis:
+##### Solution
+There may be a script trying to pull the version by reading mix.exs
+A good solution to this that we've found is to look for and update these scripts:
+- If they already have hex installed and authed, go ahead and use `mix app.version`
+- In other cases, it may be cleaner to have the script call the binary, after it has been built, with the `version` argument
+Such solutions can look like `VERSION=$(_build/prod/rel/cledos/bin/cledos version | cut -d ' ' -f2)`
+
 ## Testing
 Testing is done by running `mix test`.
 
