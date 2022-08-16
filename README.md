@@ -53,6 +53,19 @@ install:
   - cd -
 ```
 
+In `scripts/elixir_release.sh`, this looks like
+```bash
+#!/bin/bash
+
+set -ex
+
+# auth for sifi hex packages
+cd
+mix hex.organization auth simplifi --key ${HEX_API_KEY}
+cd -
+# compile for production
+```
+
 ## Testing
 Testing is done by running `mix test`.
 
