@@ -1,6 +1,10 @@
 # ExSifiComix
 Common mix.exs code that all projects can benefit from
 
+## Features
+- `ExSifiComix.version/0`: Enables easy versioning in any git project through git tags
+  - One can run `git flow release start $VERSION; git flow release finish $VERSION` and be done
+
 ## Installation
 Add this to the top of your mix.exs file:
 ```elixir
