@@ -66,7 +66,8 @@ Such solutions can look like `VERSION=$(_build/prod/rel/cledos/bin/cledos versio
 Testing is done by running `mix test`.
 
 ## Releasing
-You should be using [git flow](https://simplifi.atlassian.net/wiki/spaces/RTB/pages/28855038) here.
+You should be using [git flow](https://github.com/petervanderdoes/gitflow-avh/wiki/Installation) here.
+
 However, since this repo enables simplified versioning, we have chosen for the moment not to have it depend on itself.
 
 As such, after running `git flow release start <X.Y.Z>`, you must create a commit bumping the version in mix.exs before running `git flow release finish <X.Y.Z>`.
