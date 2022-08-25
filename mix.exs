@@ -6,7 +6,7 @@ defmodule ExSifiComix.MixProject do
   def project do
     [
       app: :ex_sifi_comix,
-      version: "0.1.1",
+      version: "0.2.0",
       elixir: "~> 1.12",
       package: package(),
       description: "Common mix.exs code that all projects can benefit from",
@@ -36,9 +36,9 @@ defmodule ExSifiComix.MixProject do
 
   defp package do
     [
-      files: ["lib", "mix.exs", "README.md"],
-      maintainers: ["RTB"],
-      organization: "simplifi",
+      files: ["lib", "LICENSE", "mix.exs", "README.md"],
+      maintainers: ["Simpli.fi Development Team"],
+      licenses: ["MIT"],
       links: %{Github: github()}
     ]
   end
