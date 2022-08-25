@@ -6,7 +6,7 @@ Add this to the top of your mix.exs file:
 ```elixir
 unless Kernel.function_exported?(ExSifiComix, :version, 0) do
   {:ok, _} = Application.ensure_all_started(:hex)
-  Mix.install([{:ex_sifi_comix, "~> 0.1", organization: "simplifi", runtime: false}])
+  Mix.install([{:ex_sifi_comix, "~> 0.2", runtime: false}])
 end
 ```
 Then set `version = ExSifiComix.version()` inside of the `def project`, instead of using a hardcoded version.
@@ -43,7 +43,6 @@ This is because `mix.exs` needs to ensure hex is started, so the machine needs t
 1. `cd` over to a directory without a `mix.exs`
     - Short and to the point, `cd` will take you to the home dir, which is unlikely to have this file
 2. Run whichever mix commands were failing
-    - Also run the commands necessary to authenticate with hex through mix, as they'll grant access to this and other private packages we need to `Mix.Install/2`
 3. Run `cd -` to return to your previous directory, and proceed as usual
 
 In `.travis.yml`, this usually looks something like
@@ -51,21 +50,7 @@ In `.travis.yml`, this usually looks something like
 install:
   - cd
   - mix do local.rebar --force, local.hex --force
-  - mix hex.organization auth simplifi --key ${HEX_API_KEY}
   - cd -
-```
-
-In `scripts/elixir_release.sh`, this looks like
-```bash
-#!/bin/bash
-
-set -ex
-
-# auth for sifi hex packages
-cd
-mix hex.organization auth simplifi --key ${HEX_API_KEY}
-cd -
-# compile for production
 ```
 
 #### Issue: The release build is failing to upload from Travis:
