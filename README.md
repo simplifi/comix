@@ -1,19 +1,19 @@
-# ExSifiComix
+# CoMix
 Common mix.exs code that all projects can benefit from
 
 ## Features
-- `ExSifiComix.version/0`: Enables easy versioning in any git project through git tags
+- `CoMix.version/0`: Enables easy versioning in any git project through git tags
   - One can run `git flow release start $VERSION; git flow release finish $VERSION` and be done
 
 ## Installation
 Add this to the top of your mix.exs file:
 ```elixir
-unless Kernel.function_exported?(ExSifiComix, :version, 0) do
+unless Kernel.function_exported?(CoMix, :version, 0) do
   {:ok, _} = Application.ensure_all_started(:hex)
   Mix.install([{:ex_sifi_comix, "~> 0.2", runtime: false}])
 end
 ```
-Then set `version = ExSifiComix.version()` inside of the `def project`, instead of using a hardcoded version.
+Then set `version = CoMix.version()` inside of the `def project`, instead of using a hardcoded version.
 
 ### Troubleshooting
 #### Issue: Adding the `Mix.install` line to `mix.exs` causes `mix` commands like `mix deps.get` to error:

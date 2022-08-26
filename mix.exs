@@ -1,11 +1,11 @@
-defmodule ExSifiComix.MixProject do
+defmodule CoMix.MixProject do
   use Mix.Project
 
-  defp github, do: "https://github.com/simplifi/ex_sifi_comix"
+  defp github, do: "https://github.com/simplifi/comix"
 
   def project do
     [
-      app: :ex_sifi_comix,
+      app: :comix,
       version: "0.2.0",
       elixir: "~> 1.12",
       package: package(),
