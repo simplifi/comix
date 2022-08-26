@@ -6,7 +6,7 @@ defmodule CoMix.MixProject do
   def project do
     [
       app: :co_mix,
-      version: "1.0.0",
+      version: "1.0.2",
       elixir: "~> 1.12",
       package: package(),
       description: "Common mix.exs code that all projects can benefit from",
