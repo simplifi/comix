@@ -1,6 +1,6 @@
-defmodule ExSifiComixTest do
+defmodule CoMixTest do
   use ExUnit.Case
-  doctest ExSifiComix
+  doctest CoMix
 
   # Creates a temporary git repo for testing
   defp create_temp_repo(path) do
@@ -32,8 +32,8 @@ defmodule ExSifiComixTest do
     # Create temporary repo for testing
     repo = create_temp_repo("tagless_repo")
 
-    # Get output of ExSifiComix.version inside repo
-    version = File.cd!(repo.path, fn -> ExSifiComix.version() end)
+    # Get output of CoMix.version inside repo
+    version = File.cd!(repo.path, fn -> CoMix.version() end)
     # It should be marked tagless
     assert String.ends_with?(version, "tagless")
 
@@ -47,13 +47,13 @@ defmodule ExSifiComixTest do
     repo = create_temp_repo("properly_tagged_repo")
     commit_and_tag(repo, "v4.34.1-test")
 
-    # Get output of ExSifiComix.version inside repo
-    version = File.cd!(repo.path, fn -> ExSifiComix.version() end)
+    # Get output of CoMix.version inside repo
+    version = File.cd!(repo.path, fn -> CoMix.version() end)
 
     # It should not be marked tagless
     assert !String.ends_with?(version, "tagless")
 
-    # Git describe should match version scheme and that should be the same as what ExSifiComix.version returns
+    # Git describe should match version scheme and that should be the same as what CoMix.version returns
     expected = Git.describe!(repo, "--tags")
     expected = match_version_scheme(expected)
     assert [version] == expected
@@ -64,7 +64,7 @@ defmodule ExSifiComixTest do
     repo = create_temp_repo("invalidly_tagged_repo")
     # Tags without a leading v are invalid
     commit_and_tag(repo, "4.34.1-test")
-    # ExSifiComix.version inside repo should throw
-    catch_error File.cd!(repo.path, fn -> ExSifiComix.version() end)
+    # CoMix.version inside repo should throw
+    catch_error File.cd!(repo.path, fn -> CoMix.version() end)
   end
 end
