@@ -31,7 +31,7 @@ Then set `version = CoMix.version()` inside of the `def project`, instead of usi
 ```
 
 ##### Solution
-Be sure to include the call to `Application.ensure_all_started(:hex)` before calling `Mix.Install/2`, to explicitly ensure hex is started.
+Be sure to include the call to `Application.ensure_all_started(:hex)` before calling `Mix.install/2`, to explicitly ensure hex is started.
 
 #### Issue: Commands like `mix local.hex --force` are failing (common for Travis):
 ```
