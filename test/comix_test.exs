@@ -65,6 +65,6 @@ defmodule CoMixTest do
     # Tags without a leading v are invalid
     commit_and_tag(repo, "4.34.1-test")
     # CoMix.version inside repo should throw
-    catch_error File.cd!(repo.path, fn -> CoMix.version() end)
+    catch_error(File.cd!(repo.path, fn -> CoMix.version() end))
   end
 end
