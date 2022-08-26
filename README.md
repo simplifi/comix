@@ -64,7 +64,7 @@ A good solution to this that we've found is to look for and update these scripts
 - If they already have hex installed and authed, go ahead and use `mix app.version`
   - If you don't have this command yet, it's easy to implement, see [here](https://mintcore.se/blog/2017/11/getting-elixir-app-version-from-command-line) ([Archived](https://web.archive.org/web/20200920053411/https://mintcore.se/blog/2017/11/getting-elixir-app-version-from-command-line))
 - In other cases, it may be cleaner to have the script call the binary, after it has been built, with a `version` argument
-Such solutions can look like `VERSION=$(_build/prod/rel/cledos/bin/cledos version | cut -d ' ' -f2)`
+Such solutions can look like `VERSION=$(_build/prod/rel/my_app/bin/my_app version | cut -d ' ' -f2)`
 
 ## Testing
 Testing is done by running `mix test`.
