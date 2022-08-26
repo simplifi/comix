@@ -1,11 +1,11 @@
 defmodule CoMix.MixProject do
   use Mix.Project
 
-  defp github, do: "https://github.com/simplifi/comix"
+  defp github, do: "https://github.com/simplifi/co_mix"
 
   def project do
     [
-      app: :comix,
+      app: :co_mix,
       version: "1.0.0",
       elixir: "~> 1.12",
       package: package(),
@@ -36,6 +36,7 @@ defmodule CoMix.MixProject do
 
   defp package do
     [
+      name: "CoMix",
       files: ["lib", "LICENSE", "mix.exs", "README.md"],
       maintainers: ["Simpli.fi Development Team"],
       licenses: ["MIT"],
