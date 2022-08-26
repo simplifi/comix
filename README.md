@@ -10,7 +10,7 @@ Add this to the top of your mix.exs file:
 ```elixir
 unless Kernel.function_exported?(CoMix, :version, 0) do
   {:ok, _} = Application.ensure_all_started(:hex)
-  Mix.install([{:ex_sifi_comix, "~> 0.2", runtime: false}])
+  Mix.install([{:ex_sifi_comix, "~> 1.0", runtime: false}])
 end
 ```
 Then set `version = CoMix.version()` inside of the `def project`, instead of using a hardcoded version.
