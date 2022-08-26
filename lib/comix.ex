@@ -1,4 +1,4 @@
-defmodule ExSifiComix do
+defmodule CoMix do
   @moduledoc File.read!(Path.expand("../README.md", __DIR__))
 
   @default_version "v0.0.1-tagless"

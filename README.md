@@ -1,13 +1,19 @@
-# ExSifiComix
+# CoMix
 Common mix.exs code that all projects can benefit from
+
+## Features
+- `CoMix.version/0`: Enables easy versioning in any git project through git tags
+  - One can run `git flow release start $VERSION; git flow release finish $VERSION` and be done
 
 ## Installation
 Add this to the top of your mix.exs file:
 ```elixir
-{:ok, _} = Application.ensure_all_started(:hex)
-Mix.install([{:ex_sifi_comix, "~> 0.1.0", organization: "simplifi", runtime: false}])
+unless Kernel.function_exported?(CoMix, :version, 0) do
+  {:ok, _} = Application.ensure_all_started(:hex)
+  Mix.install([{:ex_sifi_comix, "~> 1.0", runtime: false}])
+end
 ```
-Then set `version = ExSifiComix.version()` inside of the `def project`, instead of using a hardcoded version.
+Then set `version = CoMix.version()` inside of the `def project`, instead of using a hardcoded version.
 
 ### Troubleshooting
 #### Issue: Adding the `Mix.install` line to `mix.exs` causes `mix` commands like `mix deps.get` to error:
@@ -25,7 +31,7 @@ Then set `version = ExSifiComix.version()` inside of the `def project`, instead 
 ```
 
 ##### Solution
-Be sure to include the call to `Application.ensure_all_started(:hex)` before calling `Mix.Install/2`, to explicitly ensure hex is started.
+Be sure to include the call to `Application.ensure_all_started(:hex)` before calling `Mix.install/2`, to explicitly ensure hex is started.
 
 #### Issue: Commands like `mix local.hex --force` are failing (common for Travis):
 ```
@@ -41,7 +47,6 @@ This is because `mix.exs` needs to ensure hex is started, so the machine needs t
 1. `cd` over to a directory without a `mix.exs`
     - Short and to the point, `cd` will take you to the home dir, which is unlikely to have this file
 2. Run whichever mix commands were failing
-    - Also run the commands necessary to authenticate with hex through mix, as they'll grant access to this and other private packages we need to `Mix.Install/2`
 3. Run `cd -` to return to your previous directory, and proceed as usual
 
 In `.travis.yml`, this usually looks something like
@@ -49,15 +54,24 @@ In `.travis.yml`, this usually looks something like
 install:
   - cd
   - mix do local.rebar --force, local.hex --force
-  - mix hex.organization auth simplifi --key ${HEX_API_KEY}
   - cd -
 ```
+
+#### Issue: The release build is failing to upload from Travis:
+##### Solution
+There may be a script trying to pull the version by reading mix.exs
+A good solution to this that we've found is to look for and update these scripts:
+- If they already have hex installed and authed, go ahead and use `mix app.version`
+  - If you don't have this command yet, it's easy to implement, see [here](https://mintcore.se/blog/2017/11/getting-elixir-app-version-from-command-line) ([Archived](https://web.archive.org/web/20200920053411/https://mintcore.se/blog/2017/11/getting-elixir-app-version-from-command-line))
+- In other cases, it may be cleaner to have the script call the binary, after it has been built, with a `version` argument
+Such solutions can look like `VERSION=$(_build/prod/rel/my_app/bin/my_app version | cut -d ' ' -f2)`
 
 ## Testing
 Testing is done by running `mix test`.
 
 ## Releasing
-You should be using [git flow](https://simplifi.atlassian.net/wiki/spaces/RTB/pages/28855038) here.
+You should be using [git flow](https://github.com/petervanderdoes/gitflow-avh/wiki/Installation) here.
+
 However, since this repo enables simplified versioning, we have chosen for the moment not to have it depend on itself.
 
 As such, after running `git flow release start <X.Y.Z>`, you must create a commit bumping the version in mix.exs before running `git flow release finish <X.Y.Z>`.
