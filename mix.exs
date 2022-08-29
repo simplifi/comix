@@ -1,12 +1,12 @@
 defmodule CoMix.MixProject do
   use Mix.Project
 
-  defp github, do: "https://github.com/simplifi/comix"
+  defp github, do: "https://github.com/simplifi/co_mix"
 
   def project do
     [
-      app: :comix,
-      version: "1.0.0",
+      app: :co_mix,
+      version: "1.0.2",
       elixir: "~> 1.12",
       package: package(),
       description: "Common mix.exs code that all projects can benefit from",
