@@ -36,7 +36,6 @@ defmodule CoMix.MixProject do
 
   defp package do
     [
-      name: "CoMix",
       files: ["lib", "LICENSE", "mix.exs", "README.md"],
       maintainers: ["Simpli.fi Development Team"],
       licenses: ["MIT"],
