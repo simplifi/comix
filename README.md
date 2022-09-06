@@ -59,6 +59,8 @@ install:
 
 #### Issue: The release build is failing to upload from Travis:
 ##### Solution
+First, make sure that everything is being run with `MIX_ENV` set the same (or defaulted)
+
 There may be a script trying to pull the version by reading mix.exs
 A good solution to this that we've found is to look for and update these scripts:
 - If they already have hex installed, go ahead and use `mix app.version`
