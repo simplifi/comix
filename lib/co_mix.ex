@@ -35,7 +35,9 @@ defmodule CoMix do
         raise "Closest tag #{inspect(tag)} doesn't start with v?! (not version tag?)"
 
       {:error, error} ->
-        IO.puts("Could not get version. Error: #{inspect(error)}")
+        if System.get_env("CO_MIX_DEBUG") do
+          IO.puts("Could not get version. Error: #{inspect(error)}")
+        end
         @default_version
     end
   end
