@@ -33,6 +33,24 @@ Then set `version = CoMix.version()` inside of the `def project`, instead of usi
 ##### Solution
 Be sure to include the call to `Application.ensure_all_started(:hex)` before calling `Mix.install/2`, to explicitly ensure hex is started.
 
+
+#### Issue: mix commands fail with Hex 2.0
+Since updating to Hex 2.0, Mix commands fail with an error similar to
+```
+** (Protocol.UndefinedError) protocol String.Chars not implemented for %Hex.Solver.Constraints.Range{min: %Version{major: 0, minor: 2, patch: 0}, max: %Version{major: 0, minor: 3, patch: 0, pre: [0]}, include_min: true, include_max: false} of type Hex.Solver.Constraints.Range (a struct). This protocol is implemented for the following type(s): Atom, BitString, Date, DateTime, Float, Integer, List, NaiveDateTime, Time, URI, Version, Version.Requirement
+    (elixir 1.14.1) lib/string/chars.ex:3: String.Chars.impl_for!/1
+    (elixir 1.14.1) lib/string/chars.ex:22: String.Chars.to_string/1
+    (hex 2.0.0) lib/hex/mix.ex:168: Hex.Mix.registry_dep_to_def/1
+    (elixir 1.14.1) lib/enum.ex:1658: Enum."-map/2-lists^map/1-0-"/2
+    (hex 2.0.0) lib/hex/mix.ex:120: anonymous fn/1 in Hex.Mix.to_lock/1
+    (elixir 1.14.1) lib/enum.ex:1658: Enum."-map/2-lists^map/1-0-"/2
+    (elixir 1.14.1) lib/enum.ex:1658: Enum."-map/2-lists^map/1-0-"/2
+    (elixir 1.14.1) lib/map.ex:263: Map.new_from_enum/2
+```
+
+##### Solution
+This is due to a known bug that was fixed in Elixir 1.14.2, update and try again.
+
 #### Issue: Commands like `mix local.hex --force` are failing (common for Travis):
 ```
 ** (MatchError) no match of right hand side value: {:error, {:hex, {'no such file or directory', 'hex.app'}}}
