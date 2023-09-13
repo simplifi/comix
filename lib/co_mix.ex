@@ -7,7 +7,7 @@ defmodule CoMix do
   Build version from git tag
   """
   def version do
-    case :file.consult('hex_metadata.config') do
+    case :file.consult("hex_metadata.config") do
       # Use version from hex_metadata when we're a package
       {:ok, data} ->
         {"version", version} = List.keyfind(data, "version", 0)
@@ -35,10 +35,14 @@ defmodule CoMix do
         raise "Closest tag #{inspect(tag)} doesn't start with v?! (not version tag?)"
 
       {:error, error} ->
-        if System.get_env("CO_MIX_DEBUG") do
-          IO.puts("Could not get version. Error: #{inspect(error)}")
+        msg = "could not get version. Error: #{inspect(error)}"
+
+        if System.get_env("CO_MIX_TAGLESS") do
+          IO.puts("CO_MIX_TAGLESS is set, so this may be intentional, but #{msg}")
+          @default_version
+        else
+          Kernel.raise("Env Var CO_MIX_TAGLESS is unset, raising because #{msg}")
         end
-        @default_version
     end
   end
 end
