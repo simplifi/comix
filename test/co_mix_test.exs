@@ -1,5 +1,6 @@
 defmodule CoMixTest do
   use ExUnit.Case
+  import ExUnit.CaptureIO
   doctest CoMix
 
   # Creates a temporary git repo for testing
@@ -28,18 +29,33 @@ defmodule CoMixTest do
     version
   end
 
-  test "version is valid but marked tagless when there are no tags" do
+  test "version is valid but marked tagless when there are no tags and CO_MIX_TAGLESS is set" do
+    System.put_env("CO_MIX_TAGLESS", "1")
+
     # Create temporary repo for testing
     repo = create_temp_repo("tagless_repo")
 
     # Get output of CoMix.version inside repo
-    version = File.cd!(repo.path, fn -> CoMix.version() end)
+    {version, log} = File.cd!(repo.path, fn -> with_io(fn -> CoMix.version() end) end)
     # It should be marked tagless
     assert String.ends_with?(version, "tagless")
+    # The log should mention CO_MIX_TAGLESS
+    assert log =~ "CO_MIX_TAGLESS"
 
     # The version should match version scheme and return the same version
     expected = match_version_scheme("v" <> version)
     assert [version] == expected
+
+    # Clean up env var
+    System.delete_env("CO_MIX_TAGLESS")
+  end
+
+  test "version function throws an error when there are no tags and CO_MIX_TAGLESS is unset" do
+    # Create temporary repo for testing
+    repo = create_temp_repo("tagless_repo")
+
+    # CoMix.version inside repo should throw
+    catch_error(File.cd!(repo.path, fn -> CoMix.version() end))
   end
 
   test "version function retrieves git version from tag" do

@@ -4,6 +4,7 @@ Common mix.exs code that all projects can benefit from
 ## Features
 - `CoMix.version/0`: Enables easy versioning in any git project through git tags
   - One can run `git flow release start $VERSION; git flow release finish $VERSION` and be done
+  - If git errors instead of getting a tag, and the environment variable `CO_MIX_TAGLESS` is set, a version suffixed with `-tagless` is used
 
 ## Installation
 Add this to the top of your mix.exs file:
